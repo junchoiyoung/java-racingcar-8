@@ -28,4 +28,5 @@
 - 라운드 횟수가 0 이하
 - 자동차 이름에 ""이 올 경우
 - 라운드 입력에 ""이 올 경우
-#### *예외사항일 경우에는 `IllegalArgumentException` 처리한다.
+- 라운드 입력에 문자가 올 경우
+#### * 예외사항일 경우에는 `IllegalArgumentException` 처리한다.
