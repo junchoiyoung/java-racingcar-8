@@ -1,7 +1,15 @@
 package racingcar;
 
+import racingcar.controller.RaceController;
+import racingcar.model.Round;
+import racingcar.view.RacingView;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        RacingView racingView = new RacingView();
+        Round round = new Round();
+        RaceController raceController = new RaceController(racingView, round);
+
+        raceController.play();
     }
 }
