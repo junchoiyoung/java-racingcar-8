@@ -10,9 +10,15 @@ public class Round {
 
     // static으로 처리함
     public void makeCarNameList(String carsName) {
+        if (carsName.isEmpty()) {
+            throw new IllegalArgumentException("자동차 이름 입력오류");
+        }
         String[] carNameSplit = carsName.split(",");
 
         for (String carName : carNameSplit) {
+            if (carName.length() > 5) {
+                throw new IllegalArgumentException();
+            }
             Car car = new Car(carName);
             carNameList.add(car);
         }

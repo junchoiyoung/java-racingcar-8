@@ -21,7 +21,16 @@ public class RaceController {
 
         round.makeCarNameList(carNames);
 
-        long count = Integer.parseInt(roundCount);
+        long count;
+        try {
+            count = Long.parseLong(roundCount);
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
+        if (count < 0) {
+            throw new IllegalArgumentException();
+        }
+
         for (int i = 0; i < count; i++) {
             String result = round.start();
             racingView.showRoundResult(result);
