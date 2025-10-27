@@ -1,6 +1,9 @@
 package racingcar.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.List;
+import racingcar.model.Car;
+import racingcar.model.CarsList;
 
 public class RacingView {
 
@@ -16,11 +19,16 @@ public class RacingView {
         return Console.readLine();
     }
 
-    public void showRoundResult(String result) {
-        System.out.println(result);
+    public void showRoundResult(CarsList carsList) {
+        for (Car car : carsList.getCarsList()) {
+            System.out.print(car.getName() + " : ");
+            System.out.println("-".repeat(car.getDistance()));
+        }
+        System.out.println("\n");
     }
 
-    public void showWinner(String winner) {
-        System.out.println("최종 우승자 : " + winner);
+    public void showWinner(List<String> winner) {
+        System.out.print("최종 우승자 : ");
+        System.out.println(String.join(",", winner));
     }
 }
