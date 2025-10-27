@@ -1,7 +1,6 @@
 package racingcar.exception;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class RacingException {
@@ -35,7 +34,11 @@ public class RacingException {
     }
 
     public static void validateNoDuplicate(String[] carsNameArray) {
-        Set<String> carsNameSet = new HashSet<>(List.of(carsNameArray));
+        Set<String> carsNameSet = new HashSet<>();
+
+        for (String s : carsNameArray) {
+            carsNameSet.add(s.trim());
+        }
 
         int beforeSize = carsNameArray.length;
         int afterSize = carsNameSet.size();
