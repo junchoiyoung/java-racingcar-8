@@ -34,10 +34,7 @@ public class RaceController {
         racingView.printCountPrompt();
         String roundCount = racingView.readData();
 
-        RacingException.validateNotBlank(roundCount);
-        RacingException.hasNotInt(roundCount);
-
-        this.roundCount = Integer.parseInt(roundCount);
+        this.roundCount = validateRoundCount(roundCount);
     }
 
     private void createList() {
@@ -55,5 +52,12 @@ public class RaceController {
 
     private void outputWinner() {
         racingView.showWinner(SearchWinner.search(carsList));
+    }
+
+    public int validateRoundCount(String roundCount) {
+        RacingException.validateNotBlank(roundCount);
+        RacingException.hasNotInt(roundCount);
+
+        return Integer.parseInt(roundCount);
     }
 }
