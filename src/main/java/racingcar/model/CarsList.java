@@ -12,8 +12,8 @@ public class CarsList {
         RacingException.validateNotBlank(carsName);
 
         String[] carsNameArray = carsName.split(",");
+        RacingException.validateNoDuplicate(carsNameArray);
 
-        // 자동차 이름 중복일 경우 추가
         for (String carName : carsNameArray) {
             carName = carName.trim();
             carNameList.add(new Car(carName));
