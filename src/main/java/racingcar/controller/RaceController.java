@@ -1,42 +1,59 @@
 package racingcar.controller;
 
-import racingcar.model.Round;
+import racingcar.exception.RacingException;
+import racingcar.model.CarsList;
+import racingcar.model.RoundManager;
+import racingcar.model.SearchWinner;
 import racingcar.view.RacingView;
 
 public class RaceController {
     RacingView racingView;
-    Round round;
 
-    public RaceController(RacingView racingView, Round round) {
+    private int roundCount;
+    private String carsName;
+    private CarsList carsList;
+
+    public RaceController(RacingView racingView) {
         this.racingView = racingView;
-        this.round = round;
     }
 
     public void play() {
-        racingView.printCarNamePrompt();
-        String carNames = racingView.readData();
+        inputCarName();
+        inputRoundCount();
+        createList();
+        startRace();
+        outputWinner();
+    }
 
+    private void inputCarName() {
+        racingView.printCarNamePrompt();
+        carsName = racingView.readData();
+    }
+
+    private void inputRoundCount() {
         racingView.printCountPrompt();
         String roundCount = racingView.readData();
 
-        round.makeCarNameList(carNames);
+        RacingException.validateNotBlank(roundCount);
+        RacingException.hasNotInt(roundCount);
 
-        long count;
-        try {
-            count = Long.parseLong(roundCount);
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
-        }
-        if (count < 0) {
-            throw new IllegalArgumentException();
-        }
+        this.roundCount = Integer.parseInt(roundCount);
+    }
 
-        for (int i = 0; i < count; i++) {
-            String result = round.start();
-            racingView.showRoundResult(result);
-        }
+    private void createList() {
+        carsList = new CarsList(carsName);
+    }
 
-        String winner = round.searchWinner();
-        racingView.showWinner(winner);
+    private void startRace() {
+        RoundManager roundManager = new RoundManager(carsList);
+
+        for (int i = 0; i < roundCount; i++) {
+            roundManager.playOneRound();
+            racingView.showRoundResult(carsList);
+        }
+    }
+
+    private void outputWinner() {
+        racingView.showWinner(SearchWinner.search(carsList));
     }
 }
