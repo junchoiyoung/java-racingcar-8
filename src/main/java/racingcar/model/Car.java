@@ -1,20 +1,26 @@
 package racingcar.model;
 
+import racingcar.exception.RacingException;
+
 public class Car {
+    private static final int MIN_CAR_NAME_LENGTH = 0;
+
     private final String name;
-    private String movement;
+    private int distance;
 
     public Car(String name) {
+        RacingException.validateNotBlank(name);
+        RacingException.validateNameLength(name);
         this.name = name;
-        this.movement = "";
+        this.distance = MIN_CAR_NAME_LENGTH;
     }
 
-    public String getMovement() {
-        return movement;
+    public void updateDistance() {
+        distance++;
     }
 
-    public void move() {
-        movement = movement.concat("-");
+    public int getDistance() {
+        return distance;
     }
 
     public String getName() {
